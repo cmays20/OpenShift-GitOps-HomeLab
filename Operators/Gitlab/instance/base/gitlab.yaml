@@ -1,0 +1,59 @@
+apiVersion: apps.gitlab.com/v1beta1
+kind: GitLab
+metadata:
+  name: gitlab
+  namespace: gitlab-system
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  chart:
+    values:
+      prometheus:
+        install: false
+      gitlab:
+        webservice:
+          ingress:
+            tls:
+              secretName: gitlab-tls
+        kas:
+          ingress:
+            tls:
+              secretName: kas-tls
+        ingress:
+          tls:
+            secretName: registry-tls
+      minio:
+        ingress:
+          tls:
+            secretName: minio-tls
+      global:
+        hosts:
+          domain: example.com
+        ingress:
+          class: none
+          configureCertmanager: false
+          annotations:
+            route.openshift.io/termination: "edge"
+            kubernetes.io/tls-acme: true
+            cert-manager.io/cluster-issuer: acme-prod-issuer
+        email:
+          display_name: "GitLab"
+          from: "chmays@redhat.com"
+          reply_to: "chmays@redhat.com"
+        smtp:
+          enabled: true
+          address: 'smtp.gmail.com'
+          tls: false
+          port: 587
+          authentication: 'login'
+          user_name: 'chmays@redhat.com'
+          starttls_auto: true
+          openssl_verify_mode: "peer"
+          password:
+            secret: "smtp-password"
+            key: "password"
+      nginx-ingress:
+        enabled: false
+      certmanager:
+        install: false
+    version: 8.3.0
