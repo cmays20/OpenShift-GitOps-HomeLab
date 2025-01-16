@@ -86,7 +86,7 @@ Then, we need to update the ArgoCD cluster yaml again, now we need to add the fo
     - name: XDG_CONFIG_HOME
       value: /.config
     - name: SOPS_AGE_KEY_FILE
-      value: /.config/sops/age/keys.txt
+      value: /.config/sops/age/key.txt
     initContainers:
     - args:
       - echo "Installing KSOPS..."; mv ksops /custom-tools/; mv kustomize /custom-tools/;
@@ -106,8 +106,9 @@ Then, we need to update the ArgoCD cluster yaml again, now we need to add the fo
     - mountPath: /usr/local/bin/ksops
       name: custom-tools
       subPath: ksops
-    - mountPath: /.config/sops/age
+    - mountPath: /.config/sops/age/key.txt
       name: sops-age
+      subPath: key.txt
     volumes:
     - emptyDir: {}
       name: custom-tools
