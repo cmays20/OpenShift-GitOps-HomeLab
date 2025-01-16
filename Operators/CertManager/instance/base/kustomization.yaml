@@ -10,4 +10,6 @@ resources:
   - cluster-issuer.yaml
   - cert-manager-dns-patch-job.yaml
   - cert-manager-patch-cluster-wildcard-cert.yaml
+
+generators:
   - aws-secret-generator.yaml

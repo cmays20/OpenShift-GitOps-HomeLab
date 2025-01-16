@@ -94,7 +94,7 @@ Then, we need to update the ArgoCD cluster yaml again, now we need to add the fo
       command:
       - /bin/sh
       - -c
-      image: viaductoss/ksops:v4.3.3
+      image: viaductoss/ksops:v4.3.2
       name: install-ksops
       volumeMounts:
       - mountPath: /custom-tools
