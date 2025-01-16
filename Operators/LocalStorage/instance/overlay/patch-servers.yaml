@@ -1,0 +1,7 @@
+- op: replace
+  path: /spec/nodeSelector/nodeSelectorTerms/0/matchExpressions/0/values
+  value:
+    - cougar.cjmays.com
+    - oreo1.cjmays.com
+    - oreo2.cjmays.com
+    - oreo3.cjmays.com
