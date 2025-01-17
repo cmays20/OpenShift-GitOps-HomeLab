@@ -16,9 +16,6 @@ spec:
         spec:
           accessModes:
             - ReadWriteOnce
-          resources:
-            requests:
-              storage: 2Ti
           storageClassName: local-volume-set
           volumeMode: Block
         status: {}
