@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - ../base/
+  - ../base-local-volume-set/
 
 patches:
   - target:
@@ -12,3 +13,10 @@ patches:
       name: auto-discover-devices
       namespace: openshift-local-storage
     path: patch-servers.yaml
+  - target:
+      group: local.storage.openshift.io
+      version: v1alpha1
+      kind: LocalVolumeSet
+      name: odf-local-volume-set
+      namespace: openshift-local-storage
+    path: patch-servers-local-volume-set.yaml

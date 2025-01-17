@@ -10,7 +10,7 @@ spec:
     - config: {}
       resources: {}
       placement: {}
-      name: ocs-deviceset-gp3-csi
+      name: ocs-deviceset-local-volumes
       dataPVCTemplate:
         metadata: {}
         spec:
@@ -19,7 +19,7 @@ spec:
           resources:
             requests:
               storage: 2Ti
-          storageClassName: gp3-csi
+          storageClassName: local-volume-set
           volumeMode: Block
         status: {}
       count: 1

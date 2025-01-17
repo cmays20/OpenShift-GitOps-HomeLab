@@ -1,0 +1,21 @@
+apiVersion: local.storage.openshift.io/v1alpha1
+kind: LocalVolumeSet
+metadata:
+  name: odf-local-volume-set
+  namespace: openshift-local-storage
+spec:
+  deviceInclusionSpec:
+    deviceMechanicalProperties:
+      - NonRotational
+    deviceTypes:
+      - disk
+    minSize: 1Ti
+  nodeSelector:
+    nodeSelectorTerms:
+      - matchExpressions:
+          - key: kubernetes.io/hostname
+            operator: In
+            values:
+              - some.server.com
+  storageClassName: local-volume-set
+  volumeMode: Block
