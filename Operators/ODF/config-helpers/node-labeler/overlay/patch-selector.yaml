@@ -1,0 +1,3 @@
+- op: replace
+  path: /spec/template/spec/containers/0/env/0/value
+  value: 'kubernetes.io/hostname in (oreo1.cjmays.com, oreo2.cjmays.com, oreo3.cjmays.com)'

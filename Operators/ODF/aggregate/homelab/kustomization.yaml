@@ -8,3 +8,4 @@ metadata:
 resources:
   - ../../operator/overlays/stable-4.17
   - ../../instance/overlays/bare-metal
+  - ../../config-helpers/node-labeler/overlay
