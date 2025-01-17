@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: openshift-storage
 
 resources:
+  - enable-client-console-plugin-job.yaml
   - enable-console-plugin-job.yaml
   - enable-console-plugin-rbac.yaml
   - enable-console-plugin-sa.yaml
