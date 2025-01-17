@@ -1,8 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: enable-odf-console-plugin
-  generateName: enable-odf-console-plugin-
+  name: enable-odf-client-console-plugin
   annotations:
     argocd.argoproj.io/sync-wave: "10"
 spec:
