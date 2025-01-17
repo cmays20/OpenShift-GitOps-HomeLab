@@ -16,6 +16,7 @@ spec:
             - /bin/bash
             - -c
             - |
+              set -x
               node_count=$(oc get nodes -l ${selector} --output name | wc -l)
               if [ ${node_count} -lt 3 ]; then
                 echo "Not enough selected nodes present in cluster"
