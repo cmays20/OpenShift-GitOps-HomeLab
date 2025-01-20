@@ -7,6 +7,12 @@ This project is the GitOps Repository for my HomeLab.
 - OpenShift cluster installed
 - OpenShift GitOps Operator installed in cluster
 
+## Making the Masters Schedulable
+
+```shell
+oc patch scheduler/cluster -p '{"spec":{"mastersSchedulable":true}}' --type=merge
+```
+
 ## Setting up ArgoCD
 
 ### 1. Change the label that is used to identify ArgoCD owned objects
@@ -135,3 +141,10 @@ stringData:
   password: my-password
   username: my-username
 ```
+
+## Order of Operations for Installing Operators
+
+1. ArgoCD Permissions
+2. Local Storage
+3. ODF
+4. 

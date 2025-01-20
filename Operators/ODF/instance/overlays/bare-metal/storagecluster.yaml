@@ -8,34 +8,55 @@ metadata:
 spec:
   storageDeviceSets:
     - config: {}
-      resources: {}
-      placement: {}
-      name: ocs-deviceset-local-volumes
+      count: 6
       dataPVCTemplate:
         metadata: {}
         spec:
           accessModes:
             - ReadWriteOnce
+          resources:
+            requests:
+              storage: '1'
           storageClassName: local-volume-set
           volumeMode: Block
         status: {}
-      count: 1
-      replica: 3
-      portable: true
+      name: ocs-deviceset-local-volume-set
+      placement: {}
       preparePlacement: {}
+      replica: 1
+      resources: {}
   encryption:
-    clusterWide: true
-    enable: true
+    keyRotation:
+      schedule: '@weekly'
     kms: {}
   mirroring: {}
+  monDataDirHostPath: /var/lib/rook
   managedResources:
     cephObjectStoreUsers: {}
     cephCluster: {}
-    cephBlockPools: {}
+    cephBlockPools:
+      defaultStorageClass: true
     cephNonResilientPools:
       count: 1
+      resources: {}
+      volumeClaimTemplate:
+        metadata: {}
+        spec:
+          resources: {}
+        status: {}
     cephObjectStores: {}
-    cephFilesystems: {}
+    cephFilesystems:
+      dataPoolSpec:
+        application: ''
+        erasureCoded:
+          codingChunks: 0
+          dataChunks: 0
+        mirroring: {}
+        quotas: {}
+        replicated:
+          size: 0
+        statusCheck:
+          mirror: {}
     cephRBDMirror:
       daemonCount: 1
     cephToolbox: {}
@@ -44,9 +65,9 @@ spec:
   arbiter: {}
   network:
     connections:
-      encryption:
-        enabled: true
+      encryption: {}
     multiClusterService: {}
   nodeTopologies: {}
   externalStorage: {}
   resourceProfile: balanced
+  flexibleScaling: true
