@@ -16,6 +16,8 @@ spec:
             - -c
             - |
               echo "Installing jq"
+              echo $PATH
+              sleep 10000
               wget https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
               
               echo "Setting up Registry"
