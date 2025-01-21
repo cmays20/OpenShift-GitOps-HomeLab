@@ -29,6 +29,12 @@ rules:
       - get
       - list
       - patch
+  - apiGroups: ["objectbucket.io"]
+    resources:
+      - objectbucketclaims
+    verbs:
+      - get
+      - list
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
