@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: internal-registry-setup
+  namespace: openshift-gitops
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    path: Internal-Registry/RGW-Storage-setup
+    repoURL: 'https://github.com/cmays20/OpenShift-GitOps-HomeLab.git'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      selfHeal: true
