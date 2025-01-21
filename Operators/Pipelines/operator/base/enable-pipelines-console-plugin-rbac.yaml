@@ -19,7 +19,7 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: enable-pipelines-console-plugin
-    namespace: openshift-storage
+    namespace: openshift-operators
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
