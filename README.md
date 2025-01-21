@@ -147,4 +147,6 @@ stringData:
 1. ArgoCD Permissions
 2. Local Storage
 3. ODF
-4. 
+4. Cert Manager
+5. Internal Registry Setup
+6. OpenShift Pipelines
