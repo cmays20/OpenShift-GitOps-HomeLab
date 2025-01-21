@@ -10,9 +10,14 @@ rules:
     verbs:
       - get
       - create
+  - apiGroups: ["route.openshift.io"]
+    resources:
+      - routes
+    verbs:
+      - list
   - apiGroups: ["imageregistry.operator.openshift.io"]
     resources:
-      - config
+      - configs
     verbs:
       - get
       - list
