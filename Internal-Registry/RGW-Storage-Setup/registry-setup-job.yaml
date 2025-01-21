@@ -17,6 +17,7 @@ spec:
             - |
               echo "Installing jq"
               wget -O /tmp/jq https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
+              chmod +x /tmp/jq
               
               echo "Setting up Registry"
               echo ""
