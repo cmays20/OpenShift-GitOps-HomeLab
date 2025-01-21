@@ -16,7 +16,7 @@ spec:
             - -c
             - |
               echo "Installing jq"
-              yum install jq -y
+              wget https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64
               
               echo "Setting up Registry"
               echo ""
@@ -35,7 +35,7 @@ spec:
               echo "Getting route to bucket and configuring Config Map"
               echo ""
               route_host=$(oc get route ocs-storagecluster-cephobjectstore -n openshift-storage --template='{{ .spec.host }}')
-              oc extract secret/$(oc get ingresscontroller -n openshift-ingress-operator default -o json | jq '.spec.defaultCertificate.name // "router-certs-default"' -r) -n openshift-ingress --confirm
+              oc extract secret/$(oc get ingresscontroller -n openshift-ingress-operator default -o json | ./jq-linux-amd64 '.spec.defaultCertificate.name // "router-certs-default"' -r) -n openshift-ingress --confirm
               oc create configmap image-registry-s3-bundle --from-file=ca-bundle.crt=./tls.crt  -n openshift-config
               
               echo "Patching the internal registry object"
