@@ -15,6 +15,9 @@ spec:
             - /bin/bash
             - -c
             - |
+              echo "Installing jq"
+              yum install jq -y
+              
               echo "Setting up Registry"
               echo ""
               
