@@ -12,7 +12,7 @@ spec:
           image: registry.redhat.io/openshift4/ose-cli
           env:
             - name: PLUGIN_NAME
-#              value: 'pipelines-console-plugin'
+#             value: 'pipelines-console-plugin'
           command:
             - /bin/bash
             - -c
