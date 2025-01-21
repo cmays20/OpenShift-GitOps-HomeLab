@@ -24,7 +24,7 @@ metadata:
   name: registry-setup-job-rb
 subjects:
   - kind: ServiceAccount
-    name: registry-setup-job-sa.yaml
+    name: internal-registry-setup
     namespace: openshift-image-registry
 roleRef:
   apiGroup: rbac.authorization.k8s.io
