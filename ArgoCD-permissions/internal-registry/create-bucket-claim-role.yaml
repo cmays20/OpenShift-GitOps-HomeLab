@@ -6,5 +6,4 @@ metadata:
 rules:
   - apiGroups: ["objectbucket.io"]
     resources: ["objectbucketclaims"]
-    resourceNames: ["rgwbucket"]
     verbs: ["*"]
