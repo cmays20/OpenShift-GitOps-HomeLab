@@ -8,3 +8,4 @@ resources:
   - ../../aap
   - ../../odf
   - ../../keycloak
+  - ../../internal-registry

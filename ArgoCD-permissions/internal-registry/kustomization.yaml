@@ -1,0 +1,3 @@
+resources:
+  - create-bucket-claim-role.yaml
+  - create-bucket-claim-rolebinding.yaml
