@@ -22,6 +22,7 @@ spec:
               
               echo "Setting up Registry"
               echo ""
+              bucket_name=$(oc get obc -n openshift-storage rgwbucket -o jsonpath='{.spec.bucketName}')
               
               echo "Retrieving AWS Creds for the ODF Bucket"
               echo ""
