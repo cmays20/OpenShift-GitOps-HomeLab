@@ -3,7 +3,8 @@ kind: ClusterRole
 metadata:
   name: registry-setup-job-role
 rules:
-  - resources:
+  - apiGroups: [""]
+    resources:
       - secret
       - configmap
     verbs:
