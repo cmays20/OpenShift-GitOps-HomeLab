@@ -5,8 +5,3 @@ metadata:
   namespace: openshift-cnv
   annotations:
     argocd.argoproj.io/sync-wave: "1"
-spec:
-  workloads:
-    nodePlacement:
-      nodeSelector:
-        node-role.kubernetes.io/vm: ""
