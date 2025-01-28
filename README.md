@@ -150,6 +150,7 @@ stringData:
 4. Cert Manager
 5. Internal Registry Setup
 6. OpenShift Pipelines
+7. AAP
 
 
 ## TODO
@@ -159,7 +160,6 @@ stringData:
 3. MTV
 4. ACS
 5. Compliance Operator
-6. AAP
 7. Web Terminal
 8. Trusted Supply Chain
 9. Logging
