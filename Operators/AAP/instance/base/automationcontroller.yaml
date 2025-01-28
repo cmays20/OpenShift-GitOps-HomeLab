@@ -16,8 +16,8 @@ spec:
   replicas: 1
   admin_user: admin
   #The extra setting SOCIAL_AUTH_PROTECTED_USER_FIELDS=groups is needed to make Gitlab OIDC work
-  extra_settings:
-    - setting: SOCIAL_AUTH_PROTECTED_USER_FIELDS
-      value:
-        - groups
+#  extra_settings:
+#    - setting: SOCIAL_AUTH_PROTECTED_USER_FIELDS
+#      value:
+#        - groups
   #Might be able to set the CONTROLLER_BASE_URL here
