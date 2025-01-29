@@ -151,13 +151,13 @@ stringData:
 5. Internal Registry Setup
 6. OpenShift Pipelines
 7. AAP
+8. MTV
 
 
 ## TODO
 
 1. Tekton Results
 2. Service Mesh 3
-3. MTV
 4. ACS
 5. Compliance Operator
 7. Web Terminal
