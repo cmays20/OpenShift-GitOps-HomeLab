@@ -1,0 +1,78 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: patch-api-cert
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+rules:
+  - apiGroups:
+      - config.openshift.io
+    resources:
+      - apiservers
+    verbs:
+      - get
+      - list
+      - patch
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: patch-cluster-wildcard-cert
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: patch-api-cert
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager-api-cert-patch-job-sa
+    namespace: cert-manager
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cert-manager-api-cert-patch-job-sa
+  namespace: cert-manager
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  namespace: cert-manager
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: cert-manager-api-cert-patch-job
+spec:
+  template:
+    spec:
+      containers:
+        - image: registry.redhat.io/openshift4/ose-cli
+          env:
+            - name: FQDN
+              value: someurl
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #!/usr/bin/env bash
+              if oc get secret api-certs-letsencrypt -n openshift-config; then
+                oc patch apiserver cluster --type=merge --patch='{"spec":{"servingCerts": {"namedCertificates": [{"names": ["${FQDN}"], "servingCertificate": {"name": "api-certs-letsencrypt"}}]}}}'
+              else
+                echo "Could not execute sync as secret 'api-certs-letsencrypt' in namespace 'openshift-config' does not exist, check status of CertificationRequest"
+                exit 1
+              fi
+          imagePullPolicy: Always
+          name: cert-manager-api-patch-job
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      serviceAccountName: cert-manager-api-cert-patch-job-sa
+      terminationGracePeriodSeconds: 30

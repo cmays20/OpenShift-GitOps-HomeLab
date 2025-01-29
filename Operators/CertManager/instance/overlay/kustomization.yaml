@@ -29,3 +29,24 @@ patches:
       - op: replace
         path: /spec/dnsNames/0
         value: '*.apps.mays-homelab.cjmays.com'
+  - target:
+      group: cert-manager.io
+      version: v1
+      kind: Certificate
+      name: api-certs-letsencrypt
+    patch: |-
+      - op: replace
+        path: /spec/commonName
+        value: 'api.mays-homelab.cjmays.com'
+      - op: replace
+        path: /spec/dnsNames/0
+        value: 'api.mays-homelab.cjmays.com'
+  - target:
+      group: batch
+      version: v1
+      kind: Job
+      name: cert-manager-api-cert-patch-job
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/env/0/value
+        value: 'api.mays-homelab.cjmays.com'
