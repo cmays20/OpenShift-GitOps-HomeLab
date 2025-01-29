@@ -65,7 +65,7 @@ spec:
             - |
               #!/usr/bin/env bash
               if oc get secret api-certs-letsencrypt -n openshift-config; then
-                oc patch apiserver cluster --type=merge --patch='{"spec":{"servingCerts": {"namedCertificates": [{"names": [${FQDN}], "servingCertificate": {"name": "api-certs-letsencrypt"}}]}}}'
+                oc patch apiserver cluster --type=merge --patch='{"spec":{"servingCerts": {"namedCertificates": [{"names": ["'${FQDN}'"], "servingCertificate": {"name": "api-certs-letsencrypt"}}]}}}'
               else
                 echo "Could not execute sync as secret 'api-certs-letsencrypt' in namespace 'openshift-config' does not exist, check status of CertificationRequest"
                 exit 1
