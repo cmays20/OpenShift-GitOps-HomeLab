@@ -9,3 +9,4 @@ resources:
   - ../../odf
   - ../../keycloak
   - ../../internal-registry
+  - ../../nmstate

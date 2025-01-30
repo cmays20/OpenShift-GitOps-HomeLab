@@ -1,0 +1,3 @@
+resources:
+  - argocd-nmstate-role.yaml
+  - argocd-nmstate-rolebinding.yaml
