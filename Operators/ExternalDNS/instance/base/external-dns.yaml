@@ -10,7 +10,7 @@ spec:
   provider:
     aws:
       credentials:
-        name: aws-creds
+        name: aws-credentials
     type: AWS
   source:
     hostnameAnnotation: Ignore
