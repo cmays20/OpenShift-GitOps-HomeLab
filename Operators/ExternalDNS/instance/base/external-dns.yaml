@@ -1,0 +1,25 @@
+apiVersion: externaldns.olm.openshift.io/v1beta1
+kind: ExternalDNS
+metadata:
+  name: external-dns-homelab
+  namespace: external-dns-operator
+spec:
+#  domains:
+#    - filterType: Include
+#      matchType: Pattern
+#      name: '*.cjmays.com'
+  provider:
+    aws:
+      credentials:
+        name: aws-creds
+    type: AWS
+  source:
+    hostnameAnnotation: Ignore
+    openshiftRouteOptions:
+      routerName: default
+    service:
+      serviceType:
+        - LoadBalancer
+    type: OpenShiftRoute
+  zones:
+    - Z0384427383BVLCO1859O
