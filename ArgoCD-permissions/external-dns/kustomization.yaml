@@ -1,0 +1,3 @@
+resources:
+  - argocd-external-dns-role.yaml
+  - argocd-external-dns-rolebinding.yaml

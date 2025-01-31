@@ -10,3 +10,4 @@ resources:
   - ../../keycloak
   - ../../internal-registry
   - ../../nmstate
+  - ../../external-dns
