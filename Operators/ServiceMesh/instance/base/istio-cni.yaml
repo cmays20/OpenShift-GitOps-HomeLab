@@ -1,5 +1,5 @@
-kind: IstioCNI
 apiVersion: sailoperator.io/v1alpha1
+kind: IstioCNI
 metadata:
   name: default
 spec:
