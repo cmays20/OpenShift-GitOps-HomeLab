@@ -11,3 +11,4 @@ resources:
   - ../../internal-registry
   - ../../nmstate
   - ../../external-dns
+  - ../../service-mesh
