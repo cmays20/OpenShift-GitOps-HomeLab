@@ -3,7 +3,7 @@ kind: Subscription
 metadata:
   name: servicemeshoperator3
 spec:
-  channel: stable
+  channel: candidates
   installPlanApproval: Automatic
   name: servicemeshoperator3
   source: redhat-operators
