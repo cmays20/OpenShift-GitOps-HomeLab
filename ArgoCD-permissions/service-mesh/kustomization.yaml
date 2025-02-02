@@ -1,0 +1,3 @@
+resources:
+  - argocd-service-mesh-role.yaml
+  - argocd-service-mesh-rolebinding.yaml
