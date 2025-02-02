@@ -6,4 +6,5 @@ namespace: istio-system
 
 resources:
   - namespace.yaml
-  - servicemesh-controlplane.yaml
+  - istio.yaml
+  - istio-cni.yaml
