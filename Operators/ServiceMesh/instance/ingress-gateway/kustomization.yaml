@@ -9,3 +9,4 @@ resources:
   - gateway-service.yaml
   - hpa.yaml
   - pdb.yaml
+  - namespace.yaml
