@@ -4,3 +4,4 @@ metadata:
   name: istio-ingressgateway
   labels:
     argocd.argoproj.io/managed-by: openshift-gitops
+    istio-discovery: enabled
