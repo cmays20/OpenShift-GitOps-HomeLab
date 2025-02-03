@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ../operator/base/
   - ../instance/base/
+  - ../instance/ingress-gateway/
