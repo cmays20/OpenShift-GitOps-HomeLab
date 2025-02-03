@@ -1,0 +1,13 @@
+kind: Kiali
+apiVersion: kiali.io/v1alpha1
+metadata:
+  name: kiali
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+spec:
+  version: default
+  istio_namespace: istio-system
+  deployment:
+    logger:
+      log_level: info
+    view_only_mode: false

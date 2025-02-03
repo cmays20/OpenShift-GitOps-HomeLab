@@ -8,7 +8,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   project: default
   source:
-    path: Operators/Kiali/operator/base
+    path: Operators/Kiali/aggregate
     repoURL: 'https://github.com/cmays20/OpenShift-GitOps-HomeLab.git'
     targetRevision: HEAD
   syncPolicy:
