@@ -5,3 +5,4 @@ namespace: istio-system
 
 resources:
   - kiali.yaml
+  - kiali-rb.yaml
