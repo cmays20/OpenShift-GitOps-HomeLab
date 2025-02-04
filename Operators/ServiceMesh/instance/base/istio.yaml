@@ -9,6 +9,7 @@ spec:
     inactiveRevisionDeletionGracePeriodSeconds: 30
   values:
     meshConfig:
+      accessLogFile: /dev/stdout
       discoverySelectors:
         - matchLabels:
             istio-discovery: enabled
