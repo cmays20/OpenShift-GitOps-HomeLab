@@ -8,6 +8,5 @@ OpenShift:
       termination: edge
 monitoringPasscodeSecretName: monitoring-passcode
 monitoringPasscodeSecretKey: passcode
-edition: "developer"
 community:
   enabled: true
