@@ -7,3 +7,5 @@ sonarqube:
       path: "/"
       tls:
         termination: edge
+  monitoringPasscodeSecretName: monitoring-passcode
+  monitoringPasscodeSecretKey: passcode
