@@ -10,3 +10,8 @@ monitoringPasscodeSecretName: monitoring-passcode
 monitoringPasscodeSecretKey: passcode
 community:
   enabled: true
+postgresql:
+  securityContext:
+    enabled: false
+  containerSecurityContext:
+    enabled: false
