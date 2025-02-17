@@ -1,14 +1,13 @@
-sonarqube:
-  OpenShift:
+OpenShift:
+  enabled: true
+  route:
     enabled: true
-    route:
-      enabled: true
-      host: sonarqube.apps.mays-homelab.cjmays.com
-      path: "/"
-      tls:
-        termination: edge
-  monitoringPasscodeSecretName: monitoring-passcode
-  monitoringPasscodeSecretKey: passcode
-  edition: "developer"
-  community:
-    enabled: true
+    host: sonarqube.apps.mays-homelab.cjmays.com
+    path: "/"
+    tls:
+      termination: edge
+monitoringPasscodeSecretName: monitoring-passcode
+monitoringPasscodeSecretKey: passcode
+edition: "developer"
+community:
+  enabled: true
