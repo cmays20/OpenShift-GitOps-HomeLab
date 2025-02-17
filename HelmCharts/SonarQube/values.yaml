@@ -9,3 +9,4 @@ sonarqube:
         termination: edge
   monitoringPasscodeSecretName: monitoring-passcode
   monitoringPasscodeSecretKey: passcode
+  edition: "developer"
