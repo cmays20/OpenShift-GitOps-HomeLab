@@ -1,0 +1,9 @@
+sonarqube:
+  OpenShift:
+    enabled: true
+    route:
+      enabled: true
+      host: sonarqube.apps.mays-homelab.cjmays.com
+      path: "/"
+      tls:
+        termination: edge
