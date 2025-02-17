@@ -1,0 +1,8 @@
+namespace: sonarqube
+
+resources:
+  - namespace.yaml
+
+generators:
+  - monitoring-passcode-generator.yaml
+  - helmChart.yaml

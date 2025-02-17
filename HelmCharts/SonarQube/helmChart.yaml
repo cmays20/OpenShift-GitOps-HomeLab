@@ -1,0 +1,9 @@
+apiVersion: builtin
+kind: HelmChartInflationGenerator
+metadata:
+  name: sonarqube
+name: sonarqube
+namespace: sonarqube
+releaseName: sonarqube
+repo: https://SonarSource.github.io/helm-chart-sonarqube
+valuesFile: values.yaml
