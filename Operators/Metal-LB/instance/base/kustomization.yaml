@@ -8,6 +8,6 @@ commonAnnotations:
   argocd.argoproj.io/sync-wave: "5"
 
 resources:
-  - ip-address-pool.yaml.yaml
+  - ip-address-pool.yaml
   - l2-advertisement.yaml
   - metal-lb.yaml
