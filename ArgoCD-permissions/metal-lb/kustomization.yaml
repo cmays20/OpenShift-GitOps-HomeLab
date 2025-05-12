@@ -1,0 +1,3 @@
+resources:
+  - argocd-metal-lb-role.yaml
+  - argocd-metal-lb-rolebinding.yaml

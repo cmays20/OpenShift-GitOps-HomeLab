@@ -12,3 +12,4 @@ resources:
   - ../../nmstate
   - ../../external-dns
   - ../../service-mesh
+  - ../../metal-lb
