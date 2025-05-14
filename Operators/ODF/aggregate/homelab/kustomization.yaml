@@ -6,6 +6,6 @@ metadata:
     argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 
 resources:
-  - ../../operator/overlays/stable-4.17
+  - ../../operator/overlays/stable-4.18
   - ../../instance/overlays/bare-metal
   - ../../config-helpers/node-labeler/overlay
