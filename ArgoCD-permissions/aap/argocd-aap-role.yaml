@@ -6,6 +6,6 @@ rules:
   - apiGroups: ["automationcontroller.ansible.com"] # "" indicates the core API group
     resources: ["*"]
     verbs: ["*"]
-  - apiGroups: ["aap.ansible.com/v1alpha1"]
+  - apiGroups: ["aap.ansible.com"]
     resources: ["*"]
     verbs: ["*"]
