@@ -3,5 +3,9 @@ kind: ksops
 metadata:
   # Specify a name
   name: watson-creds-generator
+  annotations:
+    config.kubernetes.io/function: |
+      exec:
+        path: ksops
 files:
   - ./watson-creds.sops.yaml
