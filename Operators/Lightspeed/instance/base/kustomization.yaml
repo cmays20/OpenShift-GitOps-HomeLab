@@ -1,0 +1,11 @@
+commonAnnotations:
+  argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+  argocd.argoproj.io/sync-wave: "5"
+
+namespace: openshift-lightspeed
+
+resources:
+  - ols-config.yaml
+
+generators:
+  - watson-creds-generator.yaml

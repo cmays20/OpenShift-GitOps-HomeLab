@@ -1,0 +1,18 @@
+apiVersion: ols.openshift.io/v1alpha1
+kind: OLSConfig
+metadata:
+  name: cluster
+spec:
+  llm:
+    providers:
+      - name: myWatsonx
+        type: watsonx
+        credentialsSecretRef:
+          name: watson-creds
+        url: https://us-south.ml.cloud.ibm.com
+        projectID: 87798b24-9a94-4046-9043-d24cdf73a67f
+        models:
+          - name: ibm/granite-3-2-8b-instruct
+  ols:
+    defaultModel: ibm/granite-3-2-8b-instruct
+    defaultProvider: myWatsonx
