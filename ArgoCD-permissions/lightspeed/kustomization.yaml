@@ -1,0 +1,3 @@
+resources:
+  - argocd-lightspeed-role.yaml
+  - argocd-lightspeed-rolebinding.yaml

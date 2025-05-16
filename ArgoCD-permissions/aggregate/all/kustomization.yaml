@@ -13,3 +13,4 @@ resources:
   - ../../external-dns
   - ../../service-mesh
   - ../../metal-lb
+  - ../../lightspeed
