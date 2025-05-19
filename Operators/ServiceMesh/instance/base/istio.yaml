@@ -8,6 +8,9 @@ spec:
     type: InPlace
     inactiveRevisionDeletionGracePeriodSeconds: 30
   values:
+    pilot:
+      autoscaleEnabled: false # <-- disable autoscaling
+      replicaCount: 2   # <-- number of desired replicas
     meshConfig:
       accessLogFile: /dev/stdout
       discoverySelectors:
