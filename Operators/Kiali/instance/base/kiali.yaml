@@ -12,6 +12,9 @@ spec:
       log_level: info
     view_only_mode: false
   external_services:
+    grafana:
+      enabled: true
+      internal_url: 'http://grafana-service.istio-system.svc:3000'
     prometheus:
       auth:
         type: bearer
