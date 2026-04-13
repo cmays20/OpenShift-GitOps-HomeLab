@@ -152,14 +152,15 @@ stringData:
 6. OpenShift Pipelines
 7. AAP
 8. MTV
+9. Web Terminal
+10. ACS
+11. User Workload Monitoring
 
 
 ## TODO
 
 1. Tekton Results
-2. Service Mesh 3
-4. ACS
 5. Compliance Operator
-7. Web Terminal
+6. File Integrity Operator
 8. Trusted Supply Chain
 9. Logging
