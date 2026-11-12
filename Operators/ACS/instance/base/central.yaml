@@ -7,6 +7,33 @@ metadata:
   name: central
 spec:
   central:
+    # Homelab right-sizing. Operator defaults reserve far more than this cluster
+    # ever uses, and the reservation is what blocks other demos from scheduling.
+    # Observed steady-state: central 7m CPU / 884Mi, central-db 15m CPU / 1000Mi.
+    # Limits are kept well above observed usage to absorb scan/ingest bursts.
+    #
+    # nodeSelector keeps both pods off the 28Gi control-plane nodes, which are
+    # the memory-constrained ones. The label is applied by the node-labels app
+    # (Node-Labels/NonMaster), which explains why worker alone is not enough.
+    nodeSelector:
+      node-role.kubernetes.io/non-master: ''
+    resources:
+      requests:
+        cpu: 250m
+        memory: 2Gi
+      limits:
+        cpu: '2'
+        memory: 4Gi
+    db:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ''
+      resources:
+        requests:
+          cpu: 500m
+          memory: 2Gi
+        limits:
+          cpu: '2'
+          memory: 4Gi
     exposure:
       loadBalancer:
         enabled: false
