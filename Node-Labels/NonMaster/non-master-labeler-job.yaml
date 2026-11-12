@@ -1,0 +1,60 @@
+# Stamps node-role.kubernetes.io/non-master onto every worker that is not a
+# control-plane node.
+#
+# Why this exists: the miniforum control-plane nodes are schedulable and also
+# carry node-role.kubernetes.io/worker, so a plain "worker" nodeSelector does
+# not exclude them. Some CRDs (e.g. the ACS Central CR) expose only
+# nodeSelector, not affinity, so they cannot express "not a master" on their
+# own. This gives them a positive label to select:
+#
+#   nodeSelector:
+#     node-role.kubernetes.io/non-master: ''
+#
+# No MachineConfigPool selects this label, so it affects scheduling only. It
+# does show up in the ROLES column of `oc get nodes`.
+#
+# This runs as an Argo CD Sync hook so it re-runs on every sync. A node added
+# to the cluster later gets the label on the next sync of this app (or a manual
+# Sync in the Argo UI).
+apiVersion: batch/v1
+kind: Job
+metadata:
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "1"
+  name: label-non-master-nodes
+spec:
+  template:
+    spec:
+      containers:
+        - image: image-registry.openshift-image-registry.svc:5000/openshift/cli:latest
+          env:
+            - name: selector
+              value: 'node-role.kubernetes.io/worker,!node-role.kubernetes.io/master'
+            - name: label
+              value: 'node-role.kubernetes.io/non-master'
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #!/usr/bin/env bash
+              set -o pipefail
+              echo "Selecting nodes with: ${selector}"
+              node_count=$(oc get nodes -l "${selector}" --output name | wc -l)
+              if [ "${node_count}" -lt 1 ]; then
+                echo "No nodes matched the selector; refusing to continue because"
+                echo "workloads pinned to ${label} would be unschedulable."
+                oc get nodes
+                exit 1
+              fi
+              echo "Labeling the following ${node_count} node(s) with ${label}:"
+              oc get nodes -l "${selector}"
+              oc label nodes -l "${selector}" "${label}=" --overwrite=true
+          imagePullPolicy: Always
+          name: label-non-master-nodes
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      serviceAccountName: non-master-labeler
+      terminationGracePeriodSeconds: 30
+  backoffLimit: 4
