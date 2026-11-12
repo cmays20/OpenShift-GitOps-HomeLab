@@ -68,5 +68,5 @@ spec:
     multiClusterService: {}
   nodeTopologies: {}
   externalStorage: {}
-  resourceProfile: balanced
+  resourceProfile: lean
   flexibleScaling: true
