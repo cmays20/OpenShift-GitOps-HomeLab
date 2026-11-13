@@ -1,0 +1,8 @@
+# Aggregates all node-level configuration for the machine-configs Argo app.
+# Every resource here triggers a rolling drain + reboot of its pool when changed.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - KubeletConfig
+  - ContainerRuntimeConfig

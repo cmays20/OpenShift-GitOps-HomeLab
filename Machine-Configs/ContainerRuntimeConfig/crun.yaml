@@ -1,0 +1,33 @@
+# Switches both pools' default OCI runtime from runc to crun.
+#
+# Why: runc is deprecated (RuncDeprecated alert) and support will be removed in
+# a future release. This cluster was installed before 4.18, so on upgrade the
+# MCO generated 00-override-{master,worker}-generated-crio-default-container-runtime
+# MachineConfigs pinning default_runtime = "runc". These ContainerRuntimeConfigs
+# render to 99-*-generated-containerruntime MachineConfigs, which sort later and
+# win. Leave the MCO's 00-override MachineConfigs alone; they are MCO-managed.
+#
+# One per pool because a pool selector can only match one pool's label here.
+# Applying or changing these drains and reboots every node: both pools roll in
+# parallel, one node per pool at a time.
+apiVersion: machineconfiguration.openshift.io/v1
+kind: ContainerRuntimeConfig
+metadata:
+  name: master-crun
+spec:
+  machineConfigPoolSelector:
+    matchLabels:
+      pools.operator.machineconfiguration.openshift.io/master: ""
+  containerRuntimeConfig:
+    defaultRuntime: crun
+---
+apiVersion: machineconfiguration.openshift.io/v1
+kind: ContainerRuntimeConfig
+metadata:
+  name: worker-crun
+spec:
+  machineConfigPoolSelector:
+    matchLabels:
+      pools.operator.machineconfiguration.openshift.io/worker: ""
+  containerRuntimeConfig:
+    defaultRuntime: crun
