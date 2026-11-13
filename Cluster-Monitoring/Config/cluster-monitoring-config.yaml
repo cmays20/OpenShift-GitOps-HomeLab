@@ -1,0 +1,51 @@
+# Pins the movable platform-monitoring components off the control-plane nodes.
+#
+# Why: the miniforum masters have only ~28Gi and were at ~77% actual memory use,
+# firing HighOverallControlPlaneMemory. prometheus-k8s alone was using ~5.3Gi on
+# miniforum2. The masters are schedulable and also carry
+# node-role.kubernetes.io/worker, so this selects the positive
+# node-role.kubernetes.io/non-master label applied by the node-labels app
+# (Node-Labels/NonMaster) instead.
+#
+# Not covered (by design): node-exporter is a DaemonSet that must run on every
+# node, cluster-monitoring-operator itself is managed by the CVO, and
+# prometheusOperatorAdmissionWebhook does not accept a nodeSelector (the
+# config webhook rejects it). Its 2 tiny replicas (5m / 30Mi) stay where they are.
+#
+# Prometheus has no persistent storage here (emptyDir), so a moved replica
+# restarts empty; its peer replica keeps history and Thanos Querier dedups the
+# two, so dashboards don't lose data during a one-at-a-time move.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data:
+  config.yaml: |
+    alertmanagerMain:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ""
+    prometheusK8s:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ""
+    prometheusOperator:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ""
+    metricsServer:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ""
+    kubeStateMetrics:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ""
+    monitoringPlugin:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ""
+    openshiftStateMetrics:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ""
+    telemeterClient:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ""
+    thanosQuerier:
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ""
