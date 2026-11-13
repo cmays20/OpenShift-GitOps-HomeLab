@@ -1,0 +1,26 @@
+# Raises the system memory reservation on the worker pool.
+#
+# Why: the SystemMemoryExceedsReservation alert fires when system.slice RSS
+# (crio + kubelet + ovs) exceeds 95% of (systemReserved + eviction threshold).
+# Workers were on the 1Gi default (1124Mi reserved incl. eviction). Measured
+# 2026-11-13: cougar 1687Mi (150%, firing), oreo2 ~1070Mi (~95%), oreo1/3
+# ~940Mi. At 2Gi the alert line is ~2040Mi, putting cougar at ~83%.
+#
+# Deliberately not autoSizingReserved: on these 61Gi workers it would reserve
+# ~5.4Gi each (~17Gi of allocatable lost) to cover ~1.7Gi of real usage.
+#
+# The master pool is covered separately by set-allocatable (kubelet-config.yaml).
+#
+# Applying or changing this drains and reboots each worker, one at a time.
+apiVersion: machineconfiguration.openshift.io/v1
+kind: KubeletConfig
+metadata:
+  name: worker-system-reserved
+spec:
+  machineConfigPoolSelector:
+    matchLabels:
+      pools.operator.machineconfiguration.openshift.io/worker: ""
+  kubeletConfig:
+    systemReserved:
+      cpu: 500m     # same as the default; listed so it is not dropped
+      memory: 2Gi

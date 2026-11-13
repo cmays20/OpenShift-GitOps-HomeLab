@@ -1,2 +1,3 @@
 resources:
   - kubelet-config.yaml
+  - worker-system-reserved.yaml
