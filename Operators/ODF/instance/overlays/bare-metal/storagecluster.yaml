@@ -69,6 +69,20 @@ spec:
   nodeTopologies: {}
   externalStorage: {}
   resourceProfile: lean
+  # CephFS is kept (removing it from an existing ODF 4.22 internal cluster has
+  # no supported procedure) but nothing uses it: 0 PVCs, 0 clients. The lean
+  # profile gives each MDS 1 CPU / 2Gi requested; measured peak is ~45Mi.
+  # Only requests are trimmed. The memory LIMIT stays at 2Gi on purpose: Rook
+  # sets mds_cache_memory_limit to 50% of it (1Gi today), so the MDS cache is
+  # unchanged and this cannot cause MDS_CACHE_OVERSIZED warnings.
+  resources:
+    mds:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: "1"
+        memory: 2Gi
   flexibleScaling: true
   # NooBaa / Multicloud Object Gateway is not used in this homelab: every bucket
   # (OADP backups, internal registry) is on ocs-storagecluster-ceph-rgw, and
