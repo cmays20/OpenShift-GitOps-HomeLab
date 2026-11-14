@@ -70,3 +70,11 @@ spec:
   externalStorage: {}
   resourceProfile: lean
   flexibleScaling: true
+  # NooBaa / Multicloud Object Gateway is not used in this homelab: every bucket
+  # (OADP backups, internal registry) is on ocs-storagecluster-ceph-rgw, and
+  # nothing uses the openshift-storage.noobaa.io class. "ignore" stops
+  # ocs-operator from reconciling the NooBaa CR. It does NOT delete it; the
+  # existing NooBaa CR was removed by hand (cleanupPolicy.allowNoobaaDeletion)
+  # after this was synced. Set back to "manage" to bring MCG back.
+  multiCloudGateway:
+    reconcileStrategy: ignore
