@@ -122,6 +122,33 @@ Then, we need to update the ArgoCD cluster yaml again, now we need to add the fo
       secret: sops-age
 ```
 
+#### ArgoCD sizing and placement
+
+The default application controller limit (2Gi) is too small for this cluster.
+The controller caches every resource type cluster-wide, so its memory scales
+with the size of the cluster rather than the number of Applications. At 2Gi it
+was OOMKilled and sat at its limit, which made syncs hang for 20+ minutes with
+misleading "waiting for healthy state" messages. Raise it on the ArgoCD CR:
+
+```shell
+oc patch argocd openshift-gitops -n openshift-gitops --type merge -p \
+  '{"spec":{"controller":{"resources":{"requests":{"cpu":"250m","memory":"2Gi"},"limits":{"cpu":"2","memory":"4Gi"}}}}}'
+```
+
+Keep all Argo CD pods off the memory-constrained control-plane nodes. For the
+default instance, set this on the GitopsService (the operator copies it into
+the ArgoCD CR's `nodePlacement`; setting it on the ArgoCD CR directly can be
+overwritten). The `non-master` label comes from the `node-labels` app.
+
+```shell
+oc patch gitopsservice cluster --type merge -p \
+  '{"spec":{"nodeSelector":{"node-role.kubernetes.io/non-master":""}}}'
+```
+
+If the application controller pod is unready when this is changed, the
+StatefulSet will not roll it; delete `openshift-gitops-application-controller-0`
+so it is recreated with the new spec.
+
 #### ArgoCD access to private repository (Optional: Depends on Repository)
 
 If your repository is private, you will need to give access to ArgoCD.  For this,

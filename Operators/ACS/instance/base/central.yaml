@@ -47,11 +47,53 @@ spec:
         claimName: stackrox-db
   egress:
     connectivityPolicy: Online
-  scanner:
-    analyzer:
+  # Scanner v2 block removed 2026-11-16: with the 5.0 operator it deploys no
+  # pods even when set to Enabled; Scanner V4 below is the only scanner.
+  #
+  # Scanner V4 homelab sizing, from 48h of per-container peaks (2026-11-16).
+  # Requests are cut to just above peak; limits are the operator defaults,
+  # restated because setting resources replaces the whole block.
+  # One replica each: a restart pauses scanning for about a minute, which is
+  # acceptable here. Everything is pinned off the 28Gi control-plane nodes.
+  scannerV4:
+    indexer:
+      # was 2 x 1500m / 512Mi; peak per pod 15m / 287Mi
       scaling:
-        autoScaling: Enabled
-        maxReplicas: 5
-        minReplicas: 2
-        replicas: 2
-    scannerComponent: Enabled
+        autoScaling: Disabled
+        replicas: 1
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ''
+      resources:
+        requests:
+          cpu: 100m
+          memory: 512Mi
+        limits:
+          cpu: '4'
+          memory: 3Gi
+    matcher:
+      # was 2 x 500m / 1536Mi; peak per pod 440m / 558Mi (loading the vuln DB)
+      scaling:
+        autoScaling: Disabled
+        replicas: 1
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ''
+      resources:
+        requests:
+          cpu: 200m
+          memory: 1Gi
+        limits:
+          cpu: '1'
+          memory: 3Gi
+    db:
+      # was 1 CPU / 4Gi. The 7.6Gi working-set "peak" is mostly reclaimable
+      # page cache: anon ~217Mi + shared_buffers ~803Mi, the rest file cache.
+      # Limit stays 8Gi so Postgres keeps a large cache when memory is free.
+      nodeSelector:
+        node-role.kubernetes.io/non-master: ''
+      resources:
+        requests:
+          cpu: 500m
+          memory: 2Gi
+        limits:
+          cpu: '4'
+          memory: 8Gi
